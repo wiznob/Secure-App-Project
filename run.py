@@ -26,12 +26,12 @@ def login():
         password = request.form["password"]
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        # Using parameterized query to avoid SQL injection
+        #using parameterized query to stop SQL injection
         query = "SELECT password FROM users WHERE username = ?"
         c.execute(query, (username,))
         result = c.fetchone()
         conn.close()
-        # Verifying hashed password
+        #verifying hashed password
         if result and bcrypt.checkpw(password.encode('utf-8'), result[0]):
             return redirect(url_for('home', username=username))
         else:
