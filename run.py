@@ -14,7 +14,7 @@ def init_db():
 
 @app.route("/")
 def welcome():
-    return redirect(url_for('home'))
+    return redirect(url_for('register'))
 
 #login page
 @app.route("/login", methods=["GET", "POST"])
