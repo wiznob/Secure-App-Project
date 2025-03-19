@@ -5,7 +5,9 @@ This is not a safe login system
 - pip
 
 ### Gudie
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirments.txt
-python run.py
+### Gudie
+- cd Secure-App-Project
+- python -m venv venv (if needed)
+- pip install flask
+- pip install sqlite3 (if not installed by default)
+- python run.py
