@@ -22,16 +22,13 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-
         #SQl Injection
         query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
         c.execute(query)
         result = c.fetchone()
         conn.close()
-
         if result:
             return redirect(url_for('home', username=username))
         else:
@@ -44,17 +41,14 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        
         #keeping passwords in plaintext
         c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
         conn.commit()
         conn.close()
         #move to login after registered
         return redirect(url_for('login'))
-
     return render_template("register.html")
 
 @app.route("/home")
