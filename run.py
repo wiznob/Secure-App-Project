@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 import sqlite3
 import bcrypt  #password hashing
 import bleach  #input sanitization
+import re
 
 app = Flask(__name__)
 
@@ -49,6 +50,18 @@ def register():
         password = request.form["password"]
         if not username or not password:
             return "the username or password is empty. Please try again"
+        #Check if password exist already
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+        query = "SELECT * FROM users WHERE username = ?"
+        c.execute(query, (username,))
+        if c.fetchone():
+            conn.close()
+            return "Username already exists. Please try another."
+        #check the password strength
+        if not re.fullmatch(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$', password):
+            conn.close()
+            return "Password must be at least 8 characters long and contain at least one letter and one number. and one special symbol"
         #sanitizing username input to block a potential XSS attack
         username = bleach.clean(username)
         #Using hashing on the password then storing it
