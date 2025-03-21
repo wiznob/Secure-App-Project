@@ -24,6 +24,8 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        if not username or not password:
+            return  "the username or password is empty. Please try again"
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
         #using parameterized query to stop SQL injection
@@ -45,6 +47,8 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        if not username or not password:
+            return "the username or password is empty. Please try again"
         #sanitizing username input to block a potential XSS attack
         username = bleach.clean(username)
         #Using hashing on the password then storing it
