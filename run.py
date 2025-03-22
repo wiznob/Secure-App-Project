@@ -4,9 +4,13 @@ import sqlite3
 import bcrypt  #password hashing
 import bleach  #input sanitization
 import re
+import random
+import string
 
 app = Flask(__name__)
-app.secret_key = 'I8{7?lrJne2aAE8Fs_0R'
+length = 8
+random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+app.secret_key = random_string
 csrf = CSRFProtect(app)
 
 # Making database
