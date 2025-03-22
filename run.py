@@ -78,7 +78,8 @@ def register():
 @app.route("/home")
 def home():
     #load homepage
-    return render_template("home.html")
+    username = request.args.get("username")
+    return render_template("home.html", username=username)
 
 if __name__ == "__main__":
     init_db()
