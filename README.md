@@ -10,5 +10,6 @@ This is the safe login system
 - pip install bleach
 - pip install bcrypt
 - pip install flask
+- pip install flask-wtf
 - pip install sqlite3 (if not installed by default)
 - python run.py

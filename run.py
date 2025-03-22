@@ -1,10 +1,13 @@
 from flask import Flask, request, render_template, redirect, url_for
+from flask_wtf.csrf import CSRFProtect
 import sqlite3
 import bcrypt  #password hashing
 import bleach  #input sanitization
 import re
 
 app = Flask(__name__)
+app.secret_key = 'I8{7?lrJne2aAE8Fs_0R'
+csrf = CSRFProtect(app)
 
 # Making database
 def init_db():
