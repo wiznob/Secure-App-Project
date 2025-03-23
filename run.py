@@ -57,9 +57,9 @@ def register():
         password = request.form["password"]
         if not username or not password:
             return "the username or password is empty. Please try again"
-        #Check if password exist already
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
+        #Check if username exist already
         query = "SELECT * FROM users WHERE username = ?"
         c.execute(query, (username,))
         if c.fetchone():
